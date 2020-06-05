@@ -1,0 +1,66 @@
+{% load static %}
+ <!--margin-top margin-right margin-bottom margin-left-->
+<style>
+  input[type=text] {
+    margin: 10px 0;
+  }
+</style>
+<head>
+  <link rel = "stylesheet" href = "{% static './contenttable.css' %}">
+  <link rel = "stylesheet" href = "{% static './NavBar.css' %}">
+</head>
+<p id="demo"></p>
+<body>
+  <ul class="nav">
+    <li><a href = "http://127.0.0.1:8000/"> Home </a>
+      <ul class="subnav">
+        <li><a href="http://127.0.0.1:8000/Home/BurkinaFaso">Burkinafaso</a></li>
+        <li><a href="http://127.0.0.1:8000/Home/Masim">Masim</a></li>
+      </ul>
+    </li>
+    <li><a> Databases </a>
+      <ul class="subnav">
+        <li><a href="http://127.0.0.1:8000/Study/BurkinaFaso">Burkinafaso</a></li>
+        <li><a href="http://127.0.0.1:8000/Study/Masim">Masim</a></li>
+      </ul>
+    </li>
+    <li><a> Replicates That Worth to Notice </a>
+      <ul class="subnav">
+        <li><a href="http://127.0.0.1:8000/Replicate/BurkinaFaso/WorthToNotice">Burkinafaso</a></li>
+        <li><a href="http://127.0.0.1:8000/Replicate/Masim/WorthToNotice">Masim</a></li>
+      </ul>
+    </li>
+    <li><a> Latest 100 </a>
+      <ul class="subnav">
+        <li><a href="http://127.0.0.1:8000/Latest/BurkinaFaso">Burkinafaso</a></li>
+        <li><a href="http://127.0.0.1:8000/Latest/Masim">Masim</a></li>
+      </ul>
+    </li>
+  </ul>
+  <!-- Input: Add an empty text box on the studies page that allows the user to enter a study name, there should also be a "Submit" button that the user can click.-->
+  <form action="http://127.0.0.1:8000/Study/{{link}}/Insert" align = "center">
+    Study Name: <input type="text" name="studyName" style="font-size:0.9em;"><br>
+    <input type="submit" value="Submit" style="font-size:0.9em;">
+  </form>
+  <table class="content-table" style="margin-left:auto;margin-right:auto">
+    <thead>
+      <tr>
+        <th>Study Name</th>
+        <th>Configuration Num</th>
+        <th>Replicate Num</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in  rows%}
+        <tr>
+          <td><a style="text-decoration:none; color:#000000" href="http://127.0.0.1:8000/Config/{{link}}/WhereStudyID={{r.0}}">{{r.1}}</a></td>
+          <td><a style="text-decoration:none; color:#000000" href="http://127.0.0.1:8000/Config/{{link}}/WhereStudyID={{r.0}}">{{r.2}}</a></td>
+          <td><a style="text-decoration:none; color:#000000" href="http://127.0.0.1:8000/Replicate/{{link}}/WhereStudyID={{r.0}}">{{r.3}}</a></td>
+          <td>NULL</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script src="{% static './tablesort.js' %}"></script>
+</body>
